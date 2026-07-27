@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" placeholder="enter your task" id="input-data">
+    <button onclick="AddTask()">Add Task</button>
+
+    <ul id="list-data">
+
+    </ul>
+
+    <script>
+       
+
+        function AddTask() {
+             const data = document.getElementById("input-data");
+        const data_list = document.getElementById("list-data")
+
+             const input_data = data.value
+
+            console.log(input_data)
+
+            const arrtodo = JSON.parse(localStorage.getItem("list")) || [];
+
+            
+            arrtodo.push(input_data)
+            localStorage.setItem("list", JSON.stringify(arrtodo))
+
+          
+            const li = document.createElement("li")
+
+            const btn = document.createElement("button")
+
+            
+
+            btn.innerText = "DELETE"
+
+           btn.addEventListener("click", function() {
+            li.remove()
+
+            let arrtodo1 = JSON.parse(localStorage.getItem("list")) || []
+            arrtodo1 = arrtodo1.filter(task => task !== input_data)
+            localStorage.setItem("list", JSON.stringify(arrtodo1))
+            
+
+           })
+
+             const span = document.createElement("span")
+
+            li.appendChild(span)
+
+            span.innerText = `${input_data}`
+
+           li.addEventListener("click", ()=> { 
+          
+           
+
+           if (span.style.textDecoration === "line-through") {
+                    span.style.textDecoration = "none";
+                } else {
+                    span.style.textDecoration = "line-through";
+                }
+            
+
+           })
+
+           
+           
+
+          
+
+            li.appendChild(btn)
+            data_list.appendChild(li)
+
+         
+            data.value = ""
+
+            
+        }
+
+    </script>
+    
+</body>
+</html>
